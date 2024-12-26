@@ -73,10 +73,14 @@ for i, path in enumerate(paths):
 
 # COMMAND ----------
 
+df_all_pathways = df_all_pathways.dropDuplicates()
+
+# COMMAND ----------
+
 rxcui2str = (spark.read.table('mimi_ws_1.nlm.rxnconso')
                 .filter(F.col('mimi_src_file_date') == max_mimi_src_file_date)
                 .select('rxcui', 'str')
-                .dropDuplicates())
+                .dropDuplicates(subset=['rxcui']))
 
 # COMMAND ----------
 
